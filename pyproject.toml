@@ -1,0 +1,99 @@
+[project]
+name = "financial-api-fastapi"
+version = "0.1.0"
+description = "API RESTful assíncrona para operações financeiras"
+readme = "README.md"
+requires-python = ">=3.12"
+
+# Dependências de produção — vão para a imagem Docker final
+dependencies = [
+    # Framework web assíncrono + servidor ASGI de produção
+    "fastapi[standard]>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+
+    # Banco de dados: ORM assíncrono + driver PostgreSQL puro em Python async
+    "sqlalchemy[asyncio]>=2.0.36",
+    "asyncpg>=0.30.0",
+
+    # Migrations de banco de dados
+    "alembic>=1.14.0",
+
+    # Validação de settings via variáveis de ambiente
+    "pydantic-settings>=2.6.0",
+
+    # Segurança: hashing de senhas + geração/validação de JWT
+    "passlib[bcrypt]>=1.7.4",
+    "python-jose[cryptography]>=3.3.0",
+
+    # Logging estruturado (padrão em sistemas observáveis)
+    "structlog>=24.4.0",
+
+    # Rate limiting
+    "slowapi>=0.1.9",
+]
+
+# Dependências exclusivas de desenvolvimento
+[project.optional-dependencies]
+dev = [
+    # Testes assíncronos
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "httpx>=0.27.0",           # Cliente HTTP async para testar a API
+
+    # Banco de dados em memória para testes (sem precisar de PostgreSQL rodando)
+    "aiosqlite>=0.20.0",
+
+    # Qualidade de código
+    "ruff>=0.7.0",             # Linter + formatter (substitui flake8, isort, black)
+    "mypy>=1.13.0",            # Checagem estática de tipos
+
+    # Tipos para SQLAlchemy (necessário para o mypy)
+    "sqlalchemy[mypy]>=2.0.36",
+]
+
+# permite instalar o projeto como pacote com `pip install -e .`
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# =============================================================================
+# Configuração do Hatchling (Build Backend) para inicialização pelo comando 'uv pip install -e ".[dev]"'
+# =============================================================================
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+# =============================================================================
+# Configuração do Ruff (Linter + Formatter)
+# =============================================================================
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+# E/W: erros e avisos PEP8 | F: pyflakes | I: isort | UP: pyupgrade
+# B: bugbear (detecta bugs comuns) | S: bandit (segurança)
+select = ["E", "W", "F", "I", "UP", "B", "S"]
+ignore = [
+    "S101",   # Permite uso de `assert` em testes
+    "B008",   # Permite chamadas de função em argumentos padrão (padrão FastAPI)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S", "E501"]
+
+# =============================================================================
+# Configuração do Mypy (Checagem de Tipos)
+# =============================================================================
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["sqlalchemy.ext.mypy.plugin"]
+
+# =============================================================================
+# Configuração do Pytest
+# =============================================================================
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
