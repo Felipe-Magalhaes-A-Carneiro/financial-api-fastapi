@@ -114,4 +114,4 @@ pytest tests/ -v --asyncio-mode=auto
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) [em processo de finalização] para detalhes.
