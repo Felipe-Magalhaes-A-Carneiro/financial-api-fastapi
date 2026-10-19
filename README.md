@@ -44,7 +44,7 @@ O projeto segue uma arquitetura em camadas inspirada em Domain-Driven Design (DD
 
 ```bash
 # Clone o repositório
-git clone https://github.com/SEU_USUARIO/financial-api-fastapi.git
+git clone https://github.com/Felipe-Magalhaes-A-Carneiro/financial-api-fastapi.git
 cd financial-api-fastapi
 
 # Crie e ative o ambiente virtual
@@ -114,4 +114,4 @@ pytest tests/ -v --asyncio-mode=auto
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) [em processo de finalização] para detalhes.
