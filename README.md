@@ -44,7 +44,7 @@ O projeto segue uma arquitetura em camadas inspirada em Domain-Driven Design (DD
 
 ```bash
 # Clone o repositório
-git clone https://github.com/SEU_USUARIO/financial-api-fastapi.git
+git clone https://github.com/Felipe-Magalhaes-A-Carneiro/financial-api-fastapi.git
 cd financial-api-fastapi
 
 # Crie e ative o ambiente virtual
